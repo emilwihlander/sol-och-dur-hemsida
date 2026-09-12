@@ -20,7 +20,7 @@ Editable copy lives in the text JSON files under `src/content/`. Keep the existi
 
 ## Pages CMS trial
 
-Use the hosted Pages CMS GitHub App and select `Sol-och-Dur/hemsida` when connecting the repository. Invite collaborators by email from Pages CMS. Saving an edit commits the changed JSON file to GitHub, which starts the Actions build in `.github/workflows/build.yml`.
+Use the hosted Pages CMS GitHub App and select `emilwihlander/sol-och-dur-hemsida` when connecting the repository. Invite collaborators by email from Pages CMS. Saving an edit commits the changed JSON file to GitHub, which starts the Actions build in `.github/workflows/build.yml`.
 
 The workflow uploads the generated `dist/` directory as a build artifact. Publishing that artifact to Simply.com is not configured yet.
 
