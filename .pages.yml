@@ -1,0 +1,144 @@
+media:
+    input: public/media
+    output: /media
+
+content:
+    - name: pages
+      label: Sidor
+      type: collection
+      path: src/content/pages
+      format: json
+      subfolders: false
+      operations:
+          create: false
+          rename: false
+          delete: false
+      view:
+          primary: title
+          sort: title
+          order: asc
+      fields:
+          - name: slug
+            label: Sökväg
+            type: string
+            required: true
+            readonly: true
+          - name: title
+            label: Titel
+            type: string
+            required: true
+          - name: description
+            label: Beskrivning
+            type: text
+          - name: body
+            label: Innehåll
+            type: rich-text
+            options:
+                format: html
+                media: false
+                switcher: false
+
+    - name: site
+      label: Webbplatsinställningar
+      type: file
+      path: src/content/site.json
+      format: json
+      operations:
+          delete: false
+      fields:
+          - name: title
+            label: Webbplatsnamn
+            type: string
+            required: true
+          - name: description
+            label: Beskrivning
+            type: text
+          - name: url
+            label: Webbadress
+            type: string
+          - name: navigation
+            label: Navigering
+            type: object
+            list:
+                collapsible:
+                    collapsed: true
+                    summary: '{label}'
+            fields:
+                - name: label
+                  label: Länktext
+                  type: string
+                  required: true
+                - name: href
+                  label: Länk
+                  type: string
+                  required: true
+                - name: children
+                  label: Undersidor
+                  type: object
+                  list:
+                      collapsible:
+                          collapsed: true
+                          summary: '{label}'
+                  fields:
+                      - name: label
+                        label: Länktext
+                        type: string
+                        required: true
+                      - name: href
+                        label: Länk
+                        type: string
+                        required: true
+                      - name: children
+                        label: Undersidor
+                        type: object
+                        list:
+                            collapsible:
+                                collapsed: true
+                                summary: '{label}'
+                        fields:
+                            - name: label
+                              label: Länktext
+                              type: string
+                              required: true
+                            - name: href
+                              label: Länk
+                              type: string
+                              required: true
+          - name: contact
+            label: Kontaktuppgifter
+            type: object
+            fields:
+                - name: phone
+                  label: Telefon
+                  type: string
+                - name: email
+                  label: E-post
+                  type: string
+                - name: applicationEmail
+                  label: E-post köansökan
+                  type: string
+                - name: principalEmail
+                  label: E-post rektor
+                  type: string
+                - name: principalPhone
+                  label: Telefon rektor
+                  type: string
+                - name: boardEmail
+                  label: E-post styrelse
+                  type: string
+                - name: address
+                  label: Postadress
+                  type: object
+                  fields:
+                      - name: name
+                        label: Namn
+                        type: string
+                      - name: street
+                        label: Gatuadress
+                        type: string
+                      - name: postalCode
+                        label: Postnummer
+                        type: string
+                      - name: city
+                        label: Ort
+                        type: string

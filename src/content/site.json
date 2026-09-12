@@ -1,0 +1,94 @@
+{
+    "title": "Förskolan Sol och Dur",
+    "description": "Förskolan Sol och Dur är ett föräldrakooperativ i Solhem.",
+    "url": "https://solochdur.se",
+    "navigation": [
+        {
+            "label": "Sol och Dur",
+            "href": "/",
+            "children": []
+        },
+        {
+            "label": "Personal",
+            "href": "/personal/",
+            "children": []
+        },
+        {
+            "label": "Föräldrakooperativet",
+            "href": "/foraldrakooperativet/",
+            "children": []
+        },
+        {
+            "label": "Utbildningen",
+            "href": "/verksamheten/",
+            "children": [
+                {
+                    "label": "Arbetssätt",
+                    "href": "/arbetssatt/",
+                    "children": []
+                },
+                {
+                    "label": "Värdegrund & Värdeord",
+                    "href": "/vardegrund-vardeord/",
+                    "children": []
+                },
+                {
+                    "label": "Handlingsplaner",
+                    "href": "/styrdokument-handlingsplaner/",
+                    "children": [
+                        {
+                            "label": "Likabehandlingsplan – Plan mot kränkande behandling och diskriminering",
+                            "href": "/likabehandlingsplan/",
+                            "children": []
+                        },
+                        {
+                            "label": "Handlingsplan – Anmälan till Socialnämnden",
+                            "href": "/barn-i-behov-av-sarskilt-stod/",
+                            "children": []
+                        },
+                        {
+                            "label": "Handlingsplan för barn i behov av särskilt stöd (BBSS)",
+                            "href": "/modersmalsstod/",
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Kontakta oss",
+            "href": "/kontakt/",
+            "children": [
+                {
+                    "label": "Nyheter",
+                    "href": "/nyheter/",
+                    "children": []
+                },
+                {
+                    "label": "Integritetsskyddspolicy",
+                    "href": "/forskolan-sol-och-durs-integritetsskyddspolicy/",
+                    "children": []
+                },
+                {
+                    "label": "Klagomålshantering på vår förskola",
+                    "href": "/synpunkter/",
+                    "children": []
+                }
+            ]
+        }
+    ],
+    "contact": {
+        "phone": "073-461 47 41",
+        "email": "info@solochdur.se",
+        "applicationEmail": "barnrekrytering@solochdur.se",
+        "principalEmail": "therese.hall@solochdur.se",
+        "principalPhone": "073-647 63 01",
+        "boardEmail": "styrelse@solochdur.se",
+        "address": {
+            "name": "Förskolan Sol & Dur",
+            "street": "Slånbacken 8",
+            "postalCode": "163 51",
+            "city": "Spånga"
+        }
+    }
+}

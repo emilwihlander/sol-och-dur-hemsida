@@ -1,0 +1,29 @@
+---
+import PageShell from '../components/PageShell.astro'
+import Layout from '../layouts/Layout.astro'
+import { getAllPages, getPage, pathForPage, type PageRecord } from '../lib/content'
+
+export function getStaticPaths() {
+    return getAllPages()
+        .filter((page) => page.slug !== 'solochdur')
+        .map((page) => ({
+            params: { slug: page.slug },
+            props: { page },
+        }))
+}
+
+const { page: staticPage } = Astro.props as { page?: PageRecord }
+const page = staticPage ?? getPage(Astro.params.slug)
+---
+
+{page ? (
+    <Layout title={page.title} description={page.description} canonicalPath={pathForPage(page)}>
+        <PageShell page={page} />
+    </Layout>
+) : (
+    <Layout title="Sidan hittades inte">
+        <section class="content-section">
+            <div class="container"><h1>Sidan hittades inte</h1><p>Vi hittar inte sidan du söker.</p><a class="text-link" href="/">Till startsidan <span aria-hidden="true">→</span></a></div>
+        </section>
+    </Layout>
+)}

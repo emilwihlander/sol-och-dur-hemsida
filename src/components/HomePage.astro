@@ -1,0 +1,68 @@
+---
+import PageBody from './PageBody.astro'
+import { getPage, site } from '../lib/content'
+
+const page = getPage('solochdur')
+---
+
+{page ? (
+    <>
+        <section class="home-hero">
+            <div class="container home-hero-grid">
+                <div class="home-hero-copy">
+                    <p class="eyebrow">Förskolan Sol och Dur · Solhem, Spånga</p>
+                    <h1>{page.title}</h1>
+                    {page.description && <p class="hero-lede">{page.description}</p>}
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="/kontakt/">Kontakta oss <span aria-hidden="true">↗</span></a>
+                        <a class="text-link" href="/verksamheten/">Läs om utbildningen <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+
+                <div class="hero-art" aria-hidden="true">
+                    <div class="hero-sun"></div>
+                    <svg viewBox="0 0 500 430" role="presentation">
+                        <path class="art-hill art-hill-back" d="M0 324C61 273 104 279 153 306c53 30 90 24 142-18 51-41 91-40 128-14 34 24 55 56 77 50v106H0Z" />
+                        <path class="art-hill art-hill-front" d="M0 352c48-40 105-48 161-14 66 39 108 32 158-16 52-50 98-47 181 15v93H0Z" />
+                        <path class="art-stem" d="M267 336V184" />
+                        <path class="art-leaf art-leaf-left" d="M269 252c-52-18-86-2-93 35 44 15 72 4 93-35Z" />
+                        <path class="art-leaf art-leaf-right" d="M268 224c38-36 73-39 94-13-28 34-56 41-94 13Z" />
+                        <path class="art-flower" d="M267 190c-14-24-7-44 12-50 20 11 24 30-12 50Zm0 0c-27-8-40-25-32-43 23-6 38 7 32 43Zm0 0c4-29 19-42 37-35 4 22-9 38-37 35Z" />
+                        <circle class="art-center" cx="267" cy="187" r="8" />
+                        <circle class="art-dot" cx="136" cy="124" r="5" />
+                        <circle class="art-dot" cx="382" cy="160" r="4" />
+                        <path class="art-spark" d="m90 186 5 12 12 5-12 5-5 12-5-12-12-5 12-5 5-12Zm312-64 4 9 9 4-9 4-4 9-4-9-9-4 9-4 4-9Z" />
+                    </svg>
+                    <span class="art-caption">lek · relationer · lärande</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-highlights">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow eyebrow-accent">Välkommen hit</p>
+                    <h2>Upptäck Sol och Dur.</h2>
+                </div>
+                <article class="home-body prose">
+                    <PageBody page={page} />
+                </article>
+            </div>
+        </section>
+
+        <section class="home-cta">
+            <div class="container cta-card">
+                <div>
+                    <p class="eyebrow">Nyfiken på {site.shortName}?</p>
+                    <h2>Kom och hälsa på.</h2>
+                    <p>Vi berättar gärna mer om vår vardag och hur det är att vara en del av vårt föräldrakooperativ.</p>
+                </div>
+                <a class="button button-light" href="/kontakt/">Kontakta oss <span aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+    </>
+) : (
+    <section class="content-section">
+        <div class="container"><p>Startsidan kunde inte läsas in.</p></div>
+    </section>
+)}

@@ -1,0 +1,66 @@
+---
+import PageBody from './PageBody.astro'
+import { isCurrentPath, navigation, pathForPage, type NavItem, type PageRecord } from '../lib/content'
+
+interface Props {
+    page: PageRecord
+}
+
+const { page } = Astro.props
+const pagePath = pathForPage(page)
+function findSection(items: NavItem[]): NavItem | undefined {
+    for (const item of items) {
+        if (isCurrentPath(pagePath, item.href)) return item
+        if (item.children?.some((child) => isCurrentPath(pagePath, child.href))) return item
+        for (const child of item.children ?? []) {
+            if (child.children?.some((grandchild) => isCurrentPath(pagePath, grandchild.href))) return item
+        }
+    }
+    return undefined
+}
+
+const section = findSection(navigation)
+const sectionLinks = section?.children ?? []
+---
+
+<section class="page-intro">
+    <div class="container page-intro-inner">
+        <p class="eyebrow">Förskolan Sol och Dur</p>
+        <h1>{page.title}</h1>
+        {page.description && <p class="page-lede">{page.description}</p>}
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container content-layout">
+        {sectionLinks.length > 0 && (
+            <aside class="section-nav" aria-label={`Sidor under ${section?.label}`}>
+                <p class="section-nav-title">{section?.label}</p>
+                <ul>
+                    {sectionLinks.map((link) => (
+                        <li class:list={[{ 'is-current': isCurrentPath(pagePath, link.href) }]}>
+                            <a href={link.href} aria-current={isCurrentPath(pagePath, link.href) ? 'page' : undefined}>
+                                {link.label}
+                            </a>
+                            {link.children && (
+                                <ul>
+                                    {link.children.map((nestedLink) => (
+                                        <li class:list={[{ 'is-current': isCurrentPath(pagePath, nestedLink.href) }]}>
+                                            <a href={nestedLink.href} aria-current={isCurrentPath(pagePath, nestedLink.href) ? 'page' : undefined}>
+                                                {nestedLink.label}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            </aside>
+        )}
+
+        <article class:list={["prose", { "prose-wide": !sectionLinks.length }]}>
+            <PageBody page={page} />
+        </article>
+    </div>
+</section>

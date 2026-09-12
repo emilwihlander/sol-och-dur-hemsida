@@ -1,0 +1,46 @@
+---
+import { site } from '../lib/content'
+
+const year = new Date().getFullYear()
+const email = typeof site.email === 'string' ? site.email : ''
+const phone = typeof site.phone === 'string' ? site.phone : ''
+---
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            <a class="brand brand-on-dark" href="/" aria-label="Sol och Dur, startsida">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 56 56" role="presentation">
+                        <circle cx="28" cy="28" r="13" fill="currentColor" />
+                        <path d="M28 3v8M28 45v8M3 28h8M45 28h8M10.3 10.3l5.7 5.7M40 40l5.7 5.7M45.7 10.3 40 16M16 40l-5.7 5.7" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+                    </svg>
+                </span>
+                <span class="brand-copy">
+                    <span class="brand-name">Sol och Dur</span>
+                    <span class="brand-subtitle">förskola i Spånga</span>
+                </span>
+            </a>
+            <p>{site.tagline}</p>
+        </div>
+
+        <div class="footer-contact">
+            <p class="footer-label">Hitta hit</p>
+            <p>{site.address}</p>
+            {email && <a href={`mailto:${email}`}>{email}</a>}
+            {phone && <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>}
+        </div>
+
+        <div class="footer-links">
+            <p class="footer-label">Läs mer</p>
+            <a href="/kontakt/">Kontakta oss <span aria-hidden="true">↗</span></a>
+            <a href="/foraldrakooperativet/">Om kooperativet <span aria-hidden="true">↗</span></a>
+            <a href="/forskolan-sol-och-durs-integritetsskyddspolicy/">Integritetsskyddspolicy <span aria-hidden="true">↗</span></a>
+        </div>
+    </div>
+
+    <div class="container footer-bottom">
+        <span>© {year} {site.name}</span>
+        <span>En trygg plats att växa på</span>
+    </div>
+</footer>

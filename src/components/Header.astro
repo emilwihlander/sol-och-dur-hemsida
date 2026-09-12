@@ -1,0 +1,119 @@
+---
+import { isCurrentPath, navigation, site, type NavItem } from '../lib/content'
+
+const currentPath = Astro.url.pathname
+const primaryNavigation = navigation.filter((item) => item.href !== '/')
+
+function renderChildren(items: NavItem[]) {
+    return items
+}
+---
+
+<div class="topline">
+    <div class="container topline-inner">
+        <span>{site.tagline}</span>
+        <a href="/kontakt/">Upptäck vår förskola <span aria-hidden="true">↗</span></a>
+    </div>
+</div>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Sol och Dur, startsida">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 56 56" role="presentation">
+                    <circle cx="28" cy="28" r="13" fill="currentColor" />
+                    <path d="M28 3v8M28 45v8M3 28h8M45 28h8M10.3 10.3l5.7 5.7M40 40l5.7 5.7M45.7 10.3 40 16M16 40l-5.7 5.7" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+                </svg>
+            </span>
+            <span class="brand-copy">
+                <span class="brand-name">Sol och Dur</span>
+                <span class="brand-subtitle">förskola i Spånga</span>
+            </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+            <span class="menu-toggle-label">Meny</span>
+            <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+
+        <nav id="site-navigation" class="site-navigation" aria-label="Huvudmeny">
+            <ul class="nav-list">
+                {primaryNavigation.map((item) => (
+                    <li class:list={["nav-item", { "has-children": Boolean(item.children?.length) }, { "is-current": isCurrentPath(currentPath, item.href) }]}>
+                        <div class="nav-link-row">
+                            <a class="nav-link" href={item.href} aria-current={isCurrentPath(currentPath, item.href) ? 'page' : undefined}>
+                                {item.label}
+                            </a>
+                            {item.children?.length && (
+                                <button class="submenu-toggle" type="button" aria-expanded="false" aria-label={`Visa undersidor för ${item.label}`}>
+                                    <span aria-hidden="true">⌄</span>
+                                </button>
+                            )}
+                        </div>
+                        {item.children?.length && (
+                            <ul class="subnav">
+                                {renderChildren(item.children).map((child) => (
+                                    <li class:list={["subnav-item", { "has-children": Boolean(child.children?.length) }, { "is-current": isCurrentPath(currentPath, child.href) }]}>
+                                        <div class="nav-link-row">
+                                            <a class="nav-link" href={child.href} aria-current={isCurrentPath(currentPath, child.href) ? 'page' : undefined}>
+                                                {child.label}
+                                            </a>
+                                            {child.children?.length && (
+                                                <button class="submenu-toggle" type="button" aria-expanded="false" aria-label={`Visa undersidor för ${child.label}`}>
+                                                    <span aria-hidden="true">⌄</span>
+                                                </button>
+                                            )}
+                                        </div>
+                                        {child.children?.length && (
+                                            <ul class="subnav nested-subnav">
+                                                {child.children.map((grandchild) => (
+                                                    <li class:list={["subnav-item", { "is-current": isCurrentPath(currentPath, grandchild.href) }]}>
+                                                        <a class="nav-link" href={grandchild.href} aria-current={isCurrentPath(currentPath, grandchild.href) ? 'page' : undefined}>
+                                                            {grandchild.label}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<script>
+    const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle')
+    const navigation = document.querySelector<HTMLElement>('#site-navigation')
+
+    if (menuToggle && navigation) {
+        menuToggle.addEventListener('click', () => {
+            const open = menuToggle.getAttribute('aria-expanded') === 'true'
+            menuToggle.setAttribute('aria-expanded', String(!open))
+            navigation.classList.toggle('is-open', !open)
+            document.body.classList.toggle('menu-open', !open)
+        })
+
+        navigation.querySelectorAll<HTMLButtonElement>('.submenu-toggle').forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                const item = toggle.closest('li')
+                const open = toggle.getAttribute('aria-expanded') === 'true'
+
+                toggle.setAttribute('aria-expanded', String(!open))
+                item?.classList.toggle('is-open', !open)
+            })
+        })
+
+        navigation.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                menuToggle.setAttribute('aria-expanded', 'false')
+                navigation.classList.remove('is-open')
+                document.body.classList.remove('menu-open')
+            })
+        })
+    }
+</script>

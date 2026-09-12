@@ -1,0 +1,11 @@
+---
+import type { PageRecord } from '../lib/content'
+
+interface Props {
+    page: PageRecord
+}
+
+const { page } = Astro.props
+---
+
+<div set:html={page.body || '<p>Välkommen till förskolan Sol och Dur.</p>'} />

@@ -1,0 +1,40 @@
+---
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+import '../styles/global.css'
+
+interface Props {
+    title?: string
+    description?: string
+    canonicalPath?: string
+}
+
+const { title = 'Sol och Dur', description = 'Förskolan Sol och Dur i Spånga', canonicalPath = Astro.url.pathname } = Astro.props
+const fullTitle = title === 'Sol och Dur' ? 'Sol och Dur | Förskola i Spånga' : `${title} | Sol och Dur`
+const canonical = new URL(canonicalPath, 'https://solochdur.se').toString()
+---
+
+<!doctype html>
+<html lang="sv">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:locale" content="sv_SE" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <title>{fullTitle}</title>
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Hoppa till innehåll</a>
+        <Header />
+        <main id="main-content">
+            <slot />
+        </main>
+        <Footer />
+    </body>
+</html>

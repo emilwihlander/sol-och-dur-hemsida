@@ -1,0 +1,11 @@
+---
+import HomePage from '../components/HomePage.astro'
+import Layout from '../layouts/Layout.astro'
+import { getPage } from '../lib/content'
+
+const page = getPage('solochdur')
+---
+
+<Layout title={page?.title ?? 'Sol och Dur'} description={page?.description}>
+    <HomePage />
+</Layout>
