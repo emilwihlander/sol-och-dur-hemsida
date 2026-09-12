@@ -7,6 +7,7 @@ content:
       label: Sidor
       type: collection
       path: src/content/pages
+      filename: '{primary}.json'
       format: json
       subfolders: false
       operations:
