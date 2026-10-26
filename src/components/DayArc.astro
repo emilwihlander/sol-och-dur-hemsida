@@ -1,0 +1,110 @@
+---
+// The day drawn as the sun's path from opening to closing time. A small
+// script moves the sun to the current Stockholm time on weekdays.
+interface Props {
+    items: { time: string; title: string }[]
+}
+
+const width = 1000
+const horizon = 230
+const rise = 170
+const pad = 40
+
+const minutes = (time: string) => {
+    const [h, m] = time.split('.').map(Number)
+    return h * 60 + m
+}
+
+const timed = Astro.props.items.filter((item) => /^\d{1,2}\.\d{2}$/.test(item.time))
+const start = minutes(timed[0].time)
+const end = minutes(timed[timed.length - 1].time)
+
+const point = (fraction: number) => ({
+    x: pad + fraction * (width - pad * 2),
+    y: horizon - rise * Math.sin(Math.PI * fraction),
+})
+
+const path = Array.from({ length: 61 }, (_, i) => point(i / 60))
+    .map(({ x, y }, i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`)
+    .join(' ')
+
+const markers = timed.map((item, i) => {
+    const { x, y } = point((minutes(item.time) - start) / (end - start))
+    const last = i === timed.length - 1
+    // Alternate labels above and below the line so close times don't collide.
+    // The first and last sit below, where the line is low.
+    const below = i === 0 || last || i % 2 === 0
+    return {
+        ...item,
+        x,
+        y,
+        anchor: i === 0 ? 'start' : last ? 'end' : 'middle',
+        timeY: below ? y + 30 : y - 38,
+        titleY: below ? y + 50 : y - 18,
+    }
+})
+---
+
+<div class="day-arc" data-start={start} data-end={end}>
+    <svg viewBox={`0 0 ${width} 290`} aria-hidden="true">
+        <line class="day-arc-horizon" x1="0" x2={width} y1={horizon} y2={horizon}></line>
+        <path class="day-arc-path" d={path}></path>
+        <g class="day-arc-sun" visibility="hidden">
+            <path d="M0 -36v10M0 26v10M-36 0h10M26 0h10M-25 -25l7 7M18 18l7 7M25 -25l-7 7M-18 18l-7 7"></path>
+            <circle r="16"></circle>
+        </g>
+        {
+            markers.map((marker) => (
+                <g text-anchor={marker.anchor}>
+                    <circle class="day-arc-dot" cx={marker.x} cy={marker.y} r="6" />
+                    <text class="day-arc-time" x={marker.x} y={marker.timeY}>
+                        {marker.time}
+                    </text>
+                    <text class="day-arc-title" x={marker.x} y={marker.titleY}>
+                        {marker.title}
+                    </text>
+                </g>
+            ))
+        }
+    </svg>
+    <ol class="day-list">
+        {
+            timed.map((item) => (
+                <li>
+                    <span class="day-list-time">{item.time}</span> {item.title}
+                </li>
+            ))
+        }
+    </ol>
+</div>
+
+<script>
+    const arc = document.querySelector<HTMLElement>('.day-arc')
+    const sun = arc?.querySelector<SVGGElement>('.day-arc-sun')
+
+    if (arc && sun) {
+        const parts = Object.fromEntries(
+            new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Europe/Stockholm',
+                weekday: 'short',
+                hour: 'numeric',
+                minute: 'numeric',
+                hourCycle: 'h23',
+            })
+                .formatToParts(new Date())
+                .map((part) => [part.type, part.value]),
+        )
+        const now = Number(parts.hour) * 60 + Number(parts.minute)
+        const start = Number(arc.dataset.start)
+        const end = Number(arc.dataset.end)
+        const weekday = !['Sat', 'Sun'].includes(parts.weekday)
+
+        if (weekday && now >= start && now <= end) {
+            const fraction = (now - start) / (end - start)
+            const x = 40 + fraction * 920
+            const y = 230 - 170 * Math.sin(Math.PI * fraction)
+            sun.setAttribute('transform', `translate(${x} ${y})`)
+            sun.setAttribute('visibility', 'visible')
+        }
+    }
+</script>

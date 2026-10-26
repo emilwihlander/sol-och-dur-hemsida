@@ -1,11 +1,77 @@
 ---
-import HomePage from '../components/HomePage.astro'
+import { getCollection } from 'astro:content'
+import DayArc from '../components/DayArc.astro'
+import page from '../content/pages/hem.json'
+import education from '../content/pages/utbildningen.json'
 import Layout from '../layouts/Layout.astro'
-import { getPage } from '../lib/content'
 
-const page = getPage('solochdur')
+const [latest] = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 ---
 
-<Layout title={page?.title ?? 'Sol och Dur'} description={page?.description}>
-    <HomePage />
+<Layout title={page.title} description={page.description}>
+    <section>
+        <img class="hero-image" src={page.image} alt={page.imageAlt} fetchpriority="high" />
+        <div class="wrap">
+            <div class="hero-text">
+                <h1>{page.heading}</h1>
+                <p class="lead">{page.lead}</p>
+                <div class="actions">
+                    <a class="button" href="/kontakt/#ansok">Ansök om plats</a>
+                    <a class="button button-outline" href="/utbildningen/">Så ser en dag ut</a>
+                </div>
+                {
+                    latest && (
+                        <p class="hero-news">
+                            <strong>Senaste nytt:</strong> <a href={`/nyheter/#${latest.id}`}>{latest.data.title}</a>
+                        </p>
+                    )
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="section wrap split">
+        <div>
+            <h2>{page.introHeading}</h2>
+            <div class="prose" set:html={page.intro} />
+            <p><a href="/om-oss/">Om oss och personalen</a></p>
+        </div>
+        <img class="photo" src={page.introImage} alt={page.introImageAlt} loading="lazy" />
+    </section>
+
+    <section class="wrap" aria-label="Det här är viktigt för oss">
+        <ul class="highlights">
+            {
+                page.highlights.map((item) => (
+                    <li>
+                        <img class="photo" src={item.image} alt={item.imageAlt} loading="lazy" />
+                        <h3>{item.heading}</h3>
+                        <p>{item.text}</p>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+
+    <section class="section">
+        <div class="wrap">
+            <h2>{page.dayHeading}</h2>
+            <p class="lead">{page.dayText}</p>
+            <DayArc items={education.schedule} />
+            <p><a href="/utbildningen/">Hela dagen, måltider och öppettider</a></p>
+        </div>
+    </section>
+
+    <section class="section band">
+        <div class="wrap split">
+            <img class="photo" src={page.coopImage} alt={page.coopImageAlt} loading="lazy" />
+            <div>
+                <h2>{page.coopHeading}</h2>
+                <p>{page.coopText}</p>
+                <div class="actions">
+                    <a class="button" href="/foraldrakooperativet/">Så fungerar föräldrakooperativet</a>
+                </div>
+            </div>
+        </div>
+    </section>
 </Layout>

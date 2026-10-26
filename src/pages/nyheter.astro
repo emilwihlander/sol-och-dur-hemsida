@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content'
+import PageHeader from '../components/PageHeader.astro'
+import page from '../content/pages/nyheter.json'
+import Layout from '../layouts/Layout.astro'
+import { formatDate } from '../lib/site'
+
+const news = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+---
+
+<Layout title={page.title} description={page.description}>
+    <PageHeader heading={page.heading} lead={page.lead} />
+
+    <div class="section wrap news-list">
+        {news.length === 0 && <p>Det finns inga nyheter just nu.</p>}
+        {
+            news.map(({ id, data }) => (
+                <article id={id} class="news-item">
+                    <time datetime={data.date.toISOString().slice(0, 10)}>{formatDate(data.date)}</time>
+                    <h2>{data.title}</h2>
+                    {data.image && <img class="photo" src={data.image} alt={data.imageAlt ?? ''} loading="lazy" />}
+                    <div class="prose" set:html={data.body} />
+                </article>
+            ))
+        }
+    </div>
+</Layout>

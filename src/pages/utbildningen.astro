@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content'
+import PageHeader from '../components/PageHeader.astro'
+import page from '../content/pages/utbildningen.json'
+import Layout from '../layouts/Layout.astro'
+import { educationDocuments } from '../lib/site'
+
+const documents = (await getCollection('documents'))
+    .filter((doc) => educationDocuments.includes(doc.id))
+    .sort((a, b) => educationDocuments.indexOf(a.id) - educationDocuments.indexOf(b.id))
+---
+
+<Layout title={page.title} description={page.description}>
+    <PageHeader heading={page.heading} lead={page.lead} image={page.image} imageAlt={page.imageAlt} />
+
+    <section class="section wrap schedule-layout">
+        <div>
+            <h2>En dag på förskolan</h2>
+            <ol class="schedule">
+                {
+                    page.schedule.map((item) => (
+                        <li>
+                            <span class="schedule-time">{item.time}</span>
+                            <div>
+                                <h3>{item.title}</h3>
+                                {item.text && <p>{item.text}</p>}
+                            </div>
+                        </li>
+                    ))
+                }
+            </ol>
+        </div>
+        <img class="photo" src="/media/bocker-fonster.jpg" alt="Bilderböcker uppställda på hyllor i ett fönster" loading="lazy" />
+    </section>
+
+    <section class="wrap">
+        <h2>Måltider</h2>
+        <div class="prose" set:html={page.meals} />
+    </section>
+
+    <section class="section band">
+        <div class="wrap">
+            <h2>Öppettider</h2>
+            <dl class="hours">
+                {
+                    page.hours.map((row) => (
+                        <div>
+                            <dt>{row.label}</dt>
+                            <dd>{row.value}</dd>
+                        </div>
+                    ))
+                }
+            </dl>
+            <div class="prose" set:html={page.hoursText} />
+        </div>
+    </section>
+
+    <section class="section wrap">
+        <h2>Arbetssätt, värdegrund och handlingsplaner</h2>
+        <ul class="link-list">
+            {
+                documents.map((doc) => (
+                    <li>
+                        <a href={`/${doc.id}/`}>{doc.data.title}</a>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+</Layout>

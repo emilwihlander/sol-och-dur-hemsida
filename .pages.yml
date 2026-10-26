@@ -3,143 +3,265 @@ media:
     output: /media
 
 content:
-    - name: pages
-      label: Sidor
+    - name: news
+      label: Nyheter
       type: collection
-      path: src/content/pages
+      path: src/content/news
+      filename: '{year}-{month}-{day}-{primary}.json'
+      format: json
+      view:
+          primary: title
+          fields: [title, date]
+          sort: date
+          order: desc
+      fields:
+          - name: title
+            label: Rubrik
+            type: string
+            required: true
+          - name: date
+            label: Datum
+            type: date
+            required: true
+          - name: image
+            label: Bild
+            type: image
+          - name: imageAlt
+            label: Bildbeskrivning
+            description: Beskriv vad bilden visar, för den som inte kan se den.
+            type: string
+          - name: body
+            label: Text
+            type: rich-text
+            required: true
+            options:
+                format: html
+
+    - name: staff
+      label: Personal
+      type: collection
+      path: src/content/staff
       filename: '{primary}.json'
       format: json
-      subfolders: false
-      operations:
-          create: false
-          rename: false
-          delete: false
+      view:
+          primary: name
+          fields: [name, role]
+          sort: order
+      fields:
+          - name: name
+            label: Namn
+            type: string
+            required: true
+          - name: role
+            label: Roll
+            description: Till exempel Förskollärare eller Barnskötare.
+            type: string
+            required: true
+          - name: extent
+            label: Tjänstgöringsgrad
+            description: Till exempel 100 %.
+            type: string
+          - name: since
+            label: Anställd sedan (år)
+            type: string
+          - name: photo
+            label: Foto
+            type: image
+          - name: order
+            label: Ordning på sidan
+            description: Lägst nummer visas först.
+            type: number
+          - name: text
+            label: Presentation
+            description: Lämna en tom rad mellan stycken.
+            type: text
+
+    - name: documents
+      label: Dokument och policyer
+      type: collection
+      path: src/content/documents
+      filename: '{primary}.json'
+      format: json
       view:
           primary: title
           sort: title
-          order: asc
       fields:
-          - name: slug
-            label: Sökväg
-            type: string
-            required: true
-            readonly: true
           - name: title
             label: Titel
             type: string
             required: true
           - name: description
-            label: Beskrivning
+            label: Ingress
             type: text
           - name: body
             label: Innehåll
             type: rich-text
+            required: true
             options:
                 format: html
-                media: false
-                switcher: false
+
+    - name: home
+      label: Startsidan
+      type: file
+      path: src/content/pages/hem.json
+      format: json
+      fields:
+          - { name: title, label: Sidtitel, type: string, required: true }
+          - { name: description, label: Beskrivning för sökmotorer, type: text }
+          - { name: heading, label: Huvudrubrik, type: string, required: true }
+          - { name: lead, label: Ingress, type: text }
+          - { name: image, label: Stor bild, type: image }
+          - { name: imageAlt, label: Bildbeskrivning, type: string }
+          - { name: introHeading, label: 'Presentation, rubrik', type: string }
+          - { name: intro, label: 'Presentation, text', type: rich-text, options: { format: html } }
+          - { name: introImage, label: 'Presentation, bild', type: image }
+          - { name: introImageAlt, label: 'Presentation, bildbeskrivning', type: string }
+          - name: highlights
+            label: Tre saker vi vill lyfta
+            type: object
+            list: { min: 1, max: 3 }
+            fields:
+                - { name: heading, label: Rubrik, type: string, required: true }
+                - { name: text, label: Text, type: text }
+                - { name: image, label: Bild, type: image }
+                - { name: imageAlt, label: Bildbeskrivning, type: string }
+          - { name: dayHeading, label: 'Dagen, rubrik', type: string }
+          - { name: dayText, label: 'Dagen, text', description: Tiderna hämtas från sidan Utbildningen., type: text }
+          - { name: coopHeading, label: 'Kooperativet, rubrik', type: string }
+          - { name: coopText, label: 'Kooperativet, text', type: text }
+          - { name: coopImage, label: 'Kooperativet, bild', type: image }
+          - { name: coopImageAlt, label: 'Kooperativet, bildbeskrivning', type: string }
+
+    - name: about
+      label: Om oss
+      type: file
+      path: src/content/pages/om-oss.json
+      format: json
+      fields:
+          - { name: title, label: Sidtitel, type: string, required: true }
+          - { name: description, label: Beskrivning för sökmotorer, type: text }
+          - { name: heading, label: Rubrik, type: string, required: true }
+          - { name: lead, label: Ingress, type: text }
+          - { name: image, label: Bild, type: image }
+          - { name: imageAlt, label: Bildbeskrivning, type: string }
+          - { name: organisation, label: Så är vi organiserade, type: rich-text, options: { format: html } }
+          - name: facts
+            label: Fakta
+            type: object
+            list: true
+            fields:
+                - { name: label, label: Rubrik, type: string, required: true }
+                - { name: value, label: Värde, type: string, required: true }
+          - name: history
+            label: Historia
+            type: object
+            list: true
+            fields:
+                - { name: when, label: När, type: string, required: true }
+                - { name: text, label: Vad hände, type: text, required: true }
+          - { name: staffHeading, label: 'Personal, rubrik', type: string }
+          - { name: staffText, label: 'Personal, text', description: Personerna redigeras under Personal., type: rich-text, options: { format: html } }
+
+    - name: education
+      label: Utbildningen
+      type: file
+      path: src/content/pages/utbildningen.json
+      format: json
+      fields:
+          - { name: title, label: Sidtitel, type: string, required: true }
+          - { name: description, label: Beskrivning för sökmotorer, type: text }
+          - { name: heading, label: Rubrik, type: string, required: true }
+          - { name: lead, label: Ingress, type: text }
+          - { name: image, label: Bild, type: image }
+          - { name: imageAlt, label: Bildbeskrivning, type: string }
+          - name: schedule
+            label: En dag på förskolan
+            description: Klockslag skrivs som 07.30. Första och sista klockslaget blir början och slutet på solens bana på startsidan.
+            type: object
+            list: true
+            fields:
+                - { name: time, label: Klockslag, type: string }
+                - { name: title, label: Rubrik, type: string, required: true }
+                - { name: text, label: Text, type: text }
+          - { name: meals, label: Måltider, type: rich-text, options: { format: html } }
+          - name: hours
+            label: Öppettider
+            type: object
+            list: true
+            fields:
+                - { name: label, label: När, type: string, required: true }
+                - { name: value, label: Tider, type: string, required: true }
+          - { name: hoursText, label: Om öppettider och ramtid, type: rich-text, options: { format: html } }
+
+    - name: cooperative
+      label: Föräldrakooperativet
+      type: file
+      path: src/content/pages/foraldrakooperativet.json
+      format: json
+      fields:
+          - { name: title, label: Sidtitel, type: string, required: true }
+          - { name: description, label: Beskrivning för sökmotorer, type: text }
+          - { name: heading, label: Rubrik, type: string, required: true }
+          - { name: lead, label: Ingress, type: text }
+          - { name: image, label: Bild, type: image }
+          - { name: imageAlt, label: Bildbeskrivning, type: string }
+          - { name: intro, label: Inledning, type: rich-text, options: { format: html } }
+          - name: sections
+            label: Avsnitt
+            type: object
+            list: true
+            fields:
+                - { name: heading, label: Rubrik, type: string, required: true }
+                - { name: body, label: Text, type: rich-text, options: { format: html } }
+
+    - name: contact
+      label: Kontakt
+      type: file
+      path: src/content/pages/kontakt.json
+      format: json
+      fields:
+          - { name: title, label: Sidtitel, type: string, required: true }
+          - { name: description, label: Beskrivning för sökmotorer, type: text }
+          - { name: heading, label: Rubrik, type: string, required: true }
+          - { name: lead, label: Ingress, type: text }
+          - { name: image, label: Bild, type: image }
+          - { name: imageAlt, label: Bildbeskrivning, type: string }
+          - { name: applyHeading, label: 'Ansökan, rubrik', type: string }
+          - { name: apply, label: 'Ansökan, text', type: rich-text, options: { format: html } }
+          - { name: applyUrl, label: 'Ansökan, länk till e-tjänsten', type: string }
+          - { name: visit, label: Besök oss, type: rich-text, options: { format: html } }
+          - { name: fees, label: Avgift, type: rich-text, options: { format: html } }
+          - { name: queue, label: Köregler, type: rich-text, options: { format: html } }
+
+    - name: newsPage
+      label: Nyhetssidan
+      type: file
+      path: src/content/pages/nyheter.json
+      format: json
+      fields:
+          - { name: title, label: Sidtitel, type: string, required: true }
+          - { name: description, label: Beskrivning för sökmotorer, type: text }
+          - { name: heading, label: Rubrik, type: string, required: true }
+          - { name: lead, label: Ingress, type: text }
 
     - name: site
-      label: Webbplatsinställningar
+      label: Kontaktuppgifter och inställningar
       type: file
       path: src/content/site.json
       format: json
-      operations:
-          delete: false
       fields:
-          - name: title
-            label: Webbplatsnamn
-            type: string
-            required: true
-          - name: description
-            label: Beskrivning
-            type: text
-          - name: url
-            label: Webbadress
-            type: string
-          - name: navigation
-            label: Navigering
-            type: object
-            list:
-                collapsible:
-                    collapsed: true
-                    summary: '{label}'
-            fields:
-                - name: label
-                  label: Länktext
-                  type: string
-                  required: true
-                - name: href
-                  label: Länk
-                  type: string
-                  required: true
-                - name: children
-                  label: Undersidor
-                  type: object
-                  list:
-                      collapsible:
-                          collapsed: true
-                          summary: '{label}'
-                  fields:
-                      - name: label
-                        label: Länktext
-                        type: string
-                        required: true
-                      - name: href
-                        label: Länk
-                        type: string
-                        required: true
-                      - name: children
-                        label: Undersidor
-                        type: object
-                        list:
-                            collapsible:
-                                collapsed: true
-                                summary: '{label}'
-                        fields:
-                            - name: label
-                              label: Länktext
-                              type: string
-                              required: true
-                            - name: href
-                              label: Länk
-                              type: string
-                              required: true
-          - name: contact
-            label: Kontaktuppgifter
-            type: object
-            fields:
-                - name: phone
-                  label: Telefon
-                  type: string
-                - name: email
-                  label: E-post
-                  type: string
-                - name: applicationEmail
-                  label: E-post köansökan
-                  type: string
-                - name: principalEmail
-                  label: E-post rektor
-                  type: string
-                - name: principalPhone
-                  label: Telefon rektor
-                  type: string
-                - name: boardEmail
-                  label: E-post styrelse
-                  type: string
-                - name: address
-                  label: Postadress
-                  type: object
-                  fields:
-                      - name: name
-                        label: Namn
-                        type: string
-                      - name: street
-                        label: Gatuadress
-                        type: string
-                      - name: postalCode
-                        label: Postnummer
-                        type: string
-                      - name: city
-                        label: Ort
-                        type: string
+          - { name: name, label: Förskolans namn, type: string, required: true }
+          - { name: description, label: Standardbeskrivning för sökmotorer, type: text }
+          - { name: openingHours, label: Öppettider i korthet, type: string }
+          - { name: phone, label: Telefon förskolan, type: string }
+          - { name: email, label: E-post förskolan, type: string }
+          - { name: applicationEmail, label: E-post kö och plats, type: string }
+          - { name: principalName, label: 'Rektor, namn', type: string }
+          - { name: principalEmail, label: 'Rektor, e-post', type: string }
+          - { name: principalPhone, label: 'Rektor, telefon', type: string }
+          - { name: boardEmail, label: E-post styrelsen, type: string }
+          - { name: street, label: Gatuadress, type: string }
+          - { name: postalCode, label: Postnummer, type: string }
+          - { name: city, label: Ort, type: string }
+          - { name: mapUrl, label: Länk till karta, type: string }
+          - { name: surveyUrl, label: Länk till förskoleundersökningen, type: string }

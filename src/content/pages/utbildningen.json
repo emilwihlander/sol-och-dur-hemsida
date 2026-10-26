@@ -1,0 +1,65 @@
+{
+    "title": "Utbildningen",
+    "description": "Så ser en dag ut på Förskolan Sol och Dur: dagsrytm, måltider och öppettider.",
+    "heading": "Utbildningen",
+    "lead": "Barnens nyfikenhet, upptäckarglädje och utforskande är i fokus, både inne och ute.",
+    "image": "/media/grava.jpg",
+    "imageAlt": "Ett barn som gräver i sandlådan med en spade",
+    "schedule": [
+        {
+            "time": "07.30",
+            "title": "Vi öppnar",
+            "text": "Barnen lämnas inomhus och startar dagen med pussel, spel, play-doh, ritande eller liknande."
+        },
+        {
+            "time": "08.00",
+            "title": "Ute på gården",
+            "text": "Från klockan 8 är vi ute på vår gård."
+        },
+        {
+            "time": "09.00",
+            "title": "Fruktsamling",
+            "text": "Vi går igenom vilka som är här och vad vi ska göra under dagen. Sedan delar vi upp oss i mindre grupper för projekt, rörelselek, ateljén eller en promenad till skogen."
+        },
+        {
+            "time": "10.45",
+            "title": "Lunchsamling",
+            "text": "Vi tvättar händerna och pratar om vad vi har gjort under förmiddagen."
+        },
+        {
+            "time": "11.00",
+            "title": "Lunch",
+            "text": "Efter lunchen sover de yngsta barnen i sina vagnar, utomhus under tak. De större har lässtund i två grupper."
+        },
+        {
+            "time": "13.00",
+            "title": "Aktiviteter inomhus",
+            "text": "Mellan ungefär 13.00 och 14.00 är vi inne."
+        },
+        {
+            "time": "14.00",
+            "title": "Mellanmål",
+            "text": "När vädret tillåter äter vi mellanmålet ute på gården. Efteråt är det fria aktiviteter inne eller ute tills det är dags att gå hem."
+        },
+        {
+            "time": "16.45",
+            "title": "Frukt",
+            "text": "Barn som går hem sent kan få en frukt."
+        },
+        {
+            "time": "17.00",
+            "title": "Vi stänger",
+            "text": ""
+        }
+    ],
+    "meals": "<p>Varje förmiddag serveras frukt.</p><p>En cateringfirma levererar varje dag en näringsriktig lunch med grönsaker. Till lunchen dricker barnen mjölk eller vatten. Läs mer om cateringfirman på <a href=\"https://jonsanscatering.se/\">jonsanscatering.se</a>.</p><p>På eftermiddagen serveras mellanmål, till exempel smörgås, yoghurt eller smoothie.</p>",
+    "hours": [
+        { "label": "Helgfria vardagar", "value": "07.30–17.00" },
+        { "label": "Dag före röd dag", "value": "07.30–15.00" },
+        { "label": "En dag i månaden (APT)", "value": "07.30–15.45" },
+        { "label": "Klämdagar", "value": "Stängt" },
+        { "label": "Fyra veckor på sommaren", "value": "Stängt" },
+        { "label": "Planeringsdagar", "value": "Tre heldagar och två halvdagar per år" }
+    ],
+    "hoursText": "<p>Vid APT tar en pedagog hand om de barn som behöver omsorg. När vi har stängt kallar vi in vikarie, eller erbjuder plats på en förskola i närheten, om det finns behov.</p><p>Som förälder har du rätt till förskola inom ramtiden, 06.30–18.30 alla helgfria vardagar utom julafton, midsommarafton och nyårsafton. Förskolan får ha kortare öppettider om alla föräldrars behov tas om hand. Vi följer Stockholms stads riktlinjer, där utgångspunkten är föräldrarnas arbetstid plus restid.</p><p>Rektor och huvudman följer upp föräldrarnas behov av omsorg en gång per termin.</p>"
+}

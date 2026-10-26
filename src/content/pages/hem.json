@@ -1,0 +1,38 @@
+{
+    "title": "Förskolan Sol och Dur",
+    "description": "Sol och Dur är en liten föräldrakooperativ förskola i Solhem, Spånga. 20 barn i åldern 1–5 år, mycket utevistelse och små grupper.",
+    "heading": "Vi satsar på mycket utevistelse!",
+    "lead": "Sol och Dur är en föräldrakooperativ förskola i Solhem, Spånga, med 20 barn i åldern 1–5 år. Vi är ute varje dag, på gården och i skogen.",
+    "image": "/media/host.jpg",
+    "imageAlt": "Gula och orange höstlöv mot blå himmel",
+    "introHeading": "En liten förskola i ett lugnt villaområde",
+    "intro": "<p>Förskolan ligger på Slånbacken 8, nära parker och skog. Alla 20 barn går i samma åldersblandade grupp.</p><p>En grupp föräldrar i Nälsta startade Sol och Dur hösten 2011. Sedan 2013 har vi egna, renoverade lokaler med en gård som vi använder varje dag, året om.</p>",
+    "introImage": "/media/huset.jpg",
+    "introImageAlt": "Förskolans röda hus på Slånbacken 8 med en hage målad på gården",
+    "highlights": [
+        {
+            "heading": "Ute varje dag",
+            "text": "Från klockan 8 är vi ute på gården. Vi använder också parkerna och skogen i närheten, och ibland lagar vi mat i skogen på stormkök.",
+            "image": "/media/grava.jpg",
+            "imageAlt": "Ett barn som gräver i sandlådan med en spade"
+        },
+        {
+            "heading": "Alla barn ska bli sedda varje dag",
+            "text": "Vi delar upp oss i små grupper. Då hinner pedagogerna utgå från varje barns intressen och frågor.",
+            "image": "/media/babblare.jpg",
+            "imageAlt": "Babblarna i en bokhylla där varje figur har ett eget rum"
+        },
+        {
+            "heading": "Projekt som barnen driver",
+            "text": "Vi arbetar tematiskt och utforskande, i ateljén och ute. Barnens tankar och frågor avgör vart ett projekt tar vägen.",
+            "image": "/media/kritor.jpg",
+            "imageAlt": "Vaxkritor sorterade efter färg i en trälåda"
+        }
+    ],
+    "dayHeading": "En dag på förskolan",
+    "dayText": "Tiderna är ungefärliga. Mellan måltiderna anpassar vi dagen efter väder, årstid och vad barnen är upptagna av.",
+    "coopHeading": "Vill du vara med och påverka ditt barns vardag?",
+    "coopText": "Sol och Dur ägs och drivs av föräldrarna. Varje familj sitter i styrelsen eller en arbetsgrupp och kommer på fixardagarna två gånger om året.",
+    "coopImage": "/media/atelje.jpg",
+    "coopImageAlt": "Ateljén med vimplar i taket, färger och ett långt arbetsbord"
+}

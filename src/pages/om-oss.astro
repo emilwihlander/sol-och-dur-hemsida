@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content'
+import PageHeader from '../components/PageHeader.astro'
+import page from '../content/pages/om-oss.json'
+import Layout from '../layouts/Layout.astro'
+import { paragraphs } from '../lib/site'
+
+const staff = (await getCollection('staff')).sort((a, b) => a.data.order - b.data.order)
+---
+
+<Layout title={page.title} description={page.description}>
+    <PageHeader heading={page.heading} lead={page.lead} image={page.image} imageAlt={page.imageAlt} />
+
+    <section class="section wrap with-aside">
+        <div>
+            <h2>Så är vi organiserade</h2>
+            <div class="prose" set:html={page.organisation} />
+        </div>
+        <dl class="facts">
+            {
+                page.facts.map((fact) => (
+                    <div>
+                        <dt>{fact.label}</dt>
+                        <dd>{fact.value}</dd>
+                    </div>
+                ))
+            }
+        </dl>
+    </section>
+
+    <section class="wrap">
+        <h2>Vår historia</h2>
+        <ol class="timeline">
+            {
+                page.history.map((event) => (
+                    <li>
+                        <span class="timeline-when">{event.when}</span>
+                        <p>{event.text}</p>
+                    </li>
+                ))
+            }
+        </ol>
+    </section>
+
+    <section class="section wrap" aria-label="Bilder från förskolan">
+        <div class="gallery">
+            <figure>
+                <img class="photo" src="/media/atelje.jpg" alt="Ateljén med vimplar i taket, färger och ett långt arbetsbord" loading="lazy" />
+                <figcaption>Ateljén</figcaption>
+            </figure>
+            <figure>
+                <img class="photo" src="/media/blaa2-1.jpg" alt="Samlingsrummet med rund blå matta och en interaktiv skrivtavla" loading="lazy" />
+                <figcaption>Samlingsrummet</figcaption>
+            </figure>
+            <figure>
+                <img class="photo" src="/media/bocker-fonster.jpg" alt="Bilderböcker uppställda på hyllor i ett fönster" loading="lazy" />
+                <figcaption>Böckerna i fönstret</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section id="personal" class="wrap">
+        <h2>{page.staffHeading}</h2>
+        <div class="prose" set:html={page.staffText} />
+        <ul class="staff">
+            {
+                staff.map(({ data }) => (
+                    <li>
+                        {data.photo && <img class="photo" src={data.photo} alt={data.name} loading="lazy" />}
+                        <h3>{data.name}</h3>
+                        <p class="staff-role">
+                            {[data.role, data.extent].filter(Boolean).join(', ')}
+                            {data.since && <br />}
+                            {data.since && `På Sol och Dur sedan ${data.since}`}
+                        </p>
+                        <div class="staff-text">
+                            {paragraphs(data.text).map((text) => (
+                                <p>{text}</p>
+                            ))}
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+</Layout>

@@ -1,0 +1,33 @@
+---
+import PageHeader from '../components/PageHeader.astro'
+import page from '../content/pages/foraldrakooperativet.json'
+import Layout from '../layouts/Layout.astro'
+import { site } from '../lib/site'
+---
+
+<Layout title={page.title} description={page.description}>
+    <PageHeader heading={page.heading} lead={page.lead} image={page.image} imageAlt={page.imageAlt} />
+
+    <section class="section wrap">
+        <div class="prose" set:html={page.intro} />
+    </section>
+
+    <section class="wrap topics">
+        {
+            page.sections.map((item) => (
+                <section>
+                    <h2>{item.heading}</h2>
+                    <div class="prose" set:html={item.body} />
+                </section>
+            ))
+        }
+    </section>
+
+    <section class="section wrap">
+        <h2>Frågor om föräldrakooperativet?</h2>
+        <p class="prose">
+            Mejla styrelsen på <a href={`mailto:${site.boardEmail}`}>{site.boardEmail}</a>. Vad som krävs av dig som
+            förälder står i <a href="/kontakt/#koregler">våra köregler</a>.
+        </p>
+    </section>
+</Layout>

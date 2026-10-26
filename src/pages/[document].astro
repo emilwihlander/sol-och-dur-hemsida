@@ -1,0 +1,40 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content'
+import PageHeader from '../components/PageHeader.astro'
+import Layout from '../layouts/Layout.astro'
+
+export async function getStaticPaths() {
+    const documents = await getCollection('documents')
+    return documents.map((doc) => ({ params: { document: doc.id }, props: { doc, documents } }))
+}
+
+interface Props {
+    doc: CollectionEntry<'documents'>
+    documents: CollectionEntry<'documents'>[]
+}
+
+const { doc, documents } = Astro.props
+const others = documents.toSorted((a, b) => a.data.title.localeCompare(b.data.title, 'sv'))
+---
+
+<Layout title={doc.data.title} description={doc.data.description || undefined}>
+    <PageHeader heading={doc.data.title} lead={doc.data.description || undefined} />
+
+    <div class="section wrap with-aside">
+        <div class="prose" set:html={doc.data.body} />
+        <nav class="document-nav" aria-label="Dokument">
+            <h2>Dokument</h2>
+            <ul>
+                {
+                    others.map((other) => (
+                        <li>
+                            <a href={`/${other.id}/`} aria-current={other.id === doc.id ? 'page' : undefined}>
+                                {other.data.title}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+    </div>
+</Layout>

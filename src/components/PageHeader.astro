@@ -1,0 +1,18 @@
+---
+interface Props {
+    heading: string
+    lead?: string
+    image?: string
+    imageAlt?: string
+}
+
+const { heading, lead, image, imageAlt = '' } = Astro.props
+---
+
+<header class:list={['page-header wrap', { 'has-image': image }]}>
+    <div class="page-header-text">
+        <h1>{heading}</h1>
+        {lead && <p class="lead">{lead}</p>}
+    </div>
+    {image && <img class="photo" src={image} alt={imageAlt} fetchpriority="high" />}
+</header>

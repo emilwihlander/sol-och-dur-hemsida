@@ -1,0 +1,31 @@
+{
+    "title": "Om oss",
+    "description": "Om Förskolan Sol och Dur i Solhem, Spånga: föreningen bakom förskolan, vår historia och personalen.",
+    "heading": "Om oss",
+    "lead": "Sol och Dur är en liten föräldrakooperativ förskola i ett lugnt villaområde, nära parker och skog.",
+    "image": "/media/huset.jpg",
+    "imageAlt": "Förskolans röda hus på Slånbacken 8 med en hage målad på gården",
+    "organisation": "<p>Förskolan har en åldersblandad barngrupp med 20 barn i åldern 1–5 år. Den drivs av Sol och Dur ekonomisk förening, där föräldrarna är medlemmar. Föreningen är politiskt och religiöst obunden och leds av en styrelse och olika arbetsgrupper.</p><p>Föreningen är huvudman för förskolan och arbetsgivare för personalen. Rektorn ansvarar för utbildningen som helhet, både hur undervisningen läggs upp och hur lärmiljöerna inne och ute ser ut. Undervisningen leds av förskollärare tillsammans med övriga pedagoger.</p><p>En städfirma sköter städningen och lunchen kommer från en cateringfirma.</p>",
+    "facts": [
+        { "label": "Barn", "value": "20, i åldern 1–5 år" },
+        { "label": "Adress", "value": "Slånbacken 8, Spånga" },
+        { "label": "Öppet", "value": "Vardagar 07.30–17.00" },
+        { "label": "Huvudman", "value": "Sol och Dur ekonomisk förening" }
+    ],
+    "history": [
+        {
+            "when": "Före 2011",
+            "text": "Ett familjedaghem i Nälsta skulle läggas ner när föreståndaren gick i pension. Föräldrarna ville inte att verksamheten skulle försvinna och bestämde sig för att starta en egen förskola."
+        },
+        {
+            "when": "Hösten 2011",
+            "text": "Sol och Dur öppnade i källarvåningen på Tornbacken 11A, i Spånga scoutkårs lokaler."
+        },
+        {
+            "when": "Hösten 2013",
+            "text": "Förskolan flyttade till nyrenoverade lokaler på Slånbacken 8, där vi är idag."
+        }
+    ],
+    "staffHeading": "Personal",
+    "staffText": "<p>Förskolan har fem fast anställda pedagoger. Vi strävar efter hög personaltäthet och att barnen ska mötas av samma vuxna från dag till dag. När någon är borta tar vi i första hand in vikarier som barnen redan känner.</p><p>Rektorn delar sin tjänst mellan administration och arbete i barngruppen.</p>"
+}

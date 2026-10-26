@@ -1,0 +1,71 @@
+---
+import PageHeader from '../components/PageHeader.astro'
+import page from '../content/pages/kontakt.json'
+import Layout from '../layouts/Layout.astro'
+import { address, site, telHref } from '../lib/site'
+---
+
+<Layout title={page.title} description={page.description}>
+    <PageHeader heading={page.heading} lead={page.lead} image={page.image} imageAlt={page.imageAlt} />
+
+    <section class="section wrap with-aside">
+        <div id="ansok">
+            <h2>{page.applyHeading}</h2>
+            <div class="prose" set:html={page.apply} />
+            <div class="actions">
+                <a class="button" href={page.applyUrl}>Gå till stadens e-tjänst</a>
+            </div>
+        </div>
+        <dl class="contact-list">
+            <div>
+                <dt>Förskolan</dt>
+                <dd><a href={telHref(site.phone)}>{site.phone}</a></dd>
+                <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+            </div>
+            <div>
+                <dt>Rektor {site.principalName}</dt>
+                <dd><a href={telHref(site.principalPhone)}>{site.principalPhone}</a></dd>
+                <dd><a href={`mailto:${site.principalEmail}`}>{site.principalEmail}</a></dd>
+            </div>
+            <div>
+                <dt>Frågor om kö och plats</dt>
+                <dd><a href={`mailto:${site.applicationEmail}`}>{site.applicationEmail}</a></dd>
+            </div>
+            <div>
+                <dt>Styrelsen</dt>
+                <dd><a href={`mailto:${site.boardEmail}`}>{site.boardEmail}</a></dd>
+            </div>
+            <div>
+                <dt>Adress</dt>
+                <dd>{address}</dd>
+                <dd><a href={site.mapUrl}>Visa på karta</a></dd>
+            </div>
+            <div>
+                <dt>Öppettider</dt>
+                <dd>{site.openingHours}</dd>
+            </div>
+        </dl>
+    </section>
+
+    <section class="section band">
+        <div class="wrap columns">
+            <div>
+                <h2>Besök oss</h2>
+                <div class="prose" set:html={page.visit} />
+            </div>
+            <div>
+                <h2>Avgift</h2>
+                <div class="prose" set:html={page.fees} />
+            </div>
+        </div>
+    </section>
+
+    <section id="koregler" class="section wrap">
+        <h2>Våra köregler</h2>
+        <div class="prose" set:html={page.queue} />
+        <p class="prose">
+            Läs också om <a href="/synpunkter/">hur vi hanterar klagomål</a> och vår
+            <a href="/forskolan-sol-och-durs-integritetsskyddspolicy/">integritetsskyddspolicy</a>.
+        </p>
+    </section>
+</Layout>
