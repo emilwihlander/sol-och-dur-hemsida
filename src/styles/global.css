@@ -31,6 +31,8 @@
 
 html {
     -webkit-text-size-adjust: 100%;
+    /* Keep anchor targets clear of the sticky header. */
+    scroll-padding-top: 6rem;
 }
 
 body {
